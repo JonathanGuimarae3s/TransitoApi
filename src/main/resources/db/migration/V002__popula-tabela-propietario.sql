@@ -1,0 +1,22 @@
+INSERT INTO proprietario (nome, email, telefone)
+VALUES
+    ('João Silva', 'joao.silva@gmail.com', '11987654321'),
+    ('Maria Oliveira', 'maria.oliveira@hotmail.com', '21998765432'),
+    ('Carlos Souza', 'carlos.souza@yahoo.com', '31987654321'),
+    ('Ana Paula', 'ana.paula@outlook.com', '41998765432'),
+    ('Bruno Lima', 'bruno.lima@gmail.com', '51987654321'),
+    ('Fernanda Costa', 'fernanda.costa@hotmail.com', '11999887766'),
+    ('Ricardo Santos', 'ricardo.santos@gmail.com', '22987654321'),
+    ('Juliana Mendes', 'juliana.mendes@yahoo.com', '32998765432'),
+    ('Paulo Henrique', 'paulo.henrique@gmail.com', '42987654321'),
+    ('Vanessa Martins', 'vanessa.martins@outlook.com', '52998765432'),
+    ('Gustavo Almeida', 'gustavo.almeida@gmail.com', '61987654321'),
+    ('Tatiana Rocha', 'tatiana.rocha@hotmail.com', '72998765432'),
+    ('Eduardo Pereira', 'eduardo.pereira@gmail.com', '82987654321'),
+    ('Bianca Carvalho', 'bianca.carvalho@yahoo.com', '91998765432'),
+    ('Leonardo Vieira', 'leonardo.vieira@gmail.com', '21987654322'),
+    ('Patrícia Ramos', 'patricia.ramos@hotmail.com', '22998765433'),
+    ('Felipe Andrade', 'felipe.andrade@gmail.com', '23987654324'),
+    ('Rafaela Nunes', 'rafaela.nunes@yahoo.com', '24998765435'),
+    ('Thiago Moraes', 'thiago.moraes@gmail.com', '25987654326'),
+    ('Camila Souza', 'camila.souza@outlook.com', '26998765437');

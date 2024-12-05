@@ -68,6 +68,20 @@
         </dependency>
         <!--Fim CONFIGURACAO JDBC-->
 
+        <!--INICIO IMPLEMENTACAO DO FLYWAY-->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-mysql</artifactId>
+        </dependency>
+        <!--Fim IMPLEMENTACAO FLYWAY-->
+
+
 
 
     </dependencies>
