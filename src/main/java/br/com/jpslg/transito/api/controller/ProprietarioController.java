@@ -1,9 +1,11 @@
 package br.com.jpslg.transito.api.controller;
 
+import br.com.jpslg.transito.domain.exception.NegocioException;
 import br.com.jpslg.transito.domain.model.Proprietario;
 import br.com.jpslg.transito.domain.repository.ProprietarioRepository;
+import br.com.jpslg.transito.service.ProprietarioService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +19,8 @@ import java.util.Optional;
 public class ProprietarioController {
 
 
-    private ProprietarioRepository proprietarioRepository;
+    private final ProprietarioRepository proprietarioRepository;
+    private final ProprietarioService proprietarioService;
 
     @GetMapping
     public List<Proprietario> retornaTodosProprietarios() {
@@ -28,19 +31,18 @@ public class ProprietarioController {
     public ResponseEntity<Proprietario> retornaProprietarioPorId(@PathVariable Long proprietarioId) {
         Optional<Proprietario> proprietario = proprietarioRepository.findById(proprietarioId);
 
-        return proprietario.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return proprietario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
 
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Proprietario adicionaProprietario(@RequestBody Proprietario proprietario) {
-        return proprietarioRepository.save(proprietario);
+    public Proprietario adicionaProprietario(@Valid @RequestBody Proprietario proprietario) {
+        return proprietarioService.salvar(proprietario);
     }
 
     @PutMapping("/{proprietarioId}")
-    public ResponseEntity<Proprietario> atualizar(@PathVariable Long proprietarioId, @RequestBody Proprietario proprietario) {
+    public ResponseEntity<Proprietario> atualizar(@PathVariable Long proprietarioId, @Valid @RequestBody Proprietario proprietario) {
 
         if (!proprietarioRepository.existsById(proprietarioId)) {
             return ResponseEntity.notFound().build();
@@ -48,7 +50,7 @@ public class ProprietarioController {
 
         proprietario.setId(proprietarioId);
 
-        Proprietario proprietarioAtualizado = proprietarioRepository.save(proprietario);
+        Proprietario proprietarioAtualizado = proprietarioService.salvar(proprietario);
 
         return ResponseEntity.ok(proprietarioAtualizado);
     }
@@ -60,15 +62,13 @@ public class ProprietarioController {
             ResponseEntity.notFound().build();
         }
 
-        proprietarioRepository.deleteById(proprietarioId);
+        proprietarioService.excluir(proprietarioId);
 
         return ResponseEntity.noContent().build();
     }
 
-
-    /*@GetMapping("/{proprietarioNome}")
-    public List<Proprietario> retornaProprietarioPorNome(@PathVariable String proprietarioNome) {
-        return proprietarioRepository.findByNomeContaining(proprietarioNome);
-    }*/
-
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<String> capturar(NegocioException e) {
+        return ResponseEntity.badRequest().body(e.getMessage());
+    }
 }

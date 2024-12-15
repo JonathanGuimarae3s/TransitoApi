@@ -1,0 +1,22 @@
+INSERT INTO veiculo (proprietario_id, marca, modelo, placa, status, data_cadastro, data_apreensao)
+VALUES
+    (1, 'Toyota', 'Corolla', 'ABC1234', 'REGULAR', NOW(), NULL),
+    (2, 'Honda', 'Civic', 'DEF5678', 'REGULAR', NOW(), NULL),
+    (3, 'Ford', 'Focus', 'GHI9012', 'APREENDIDO', NOW(), NOW()),
+    (4, 'Chevrolet', 'Onix', 'JKL3456', 'REGULAR', NOW(), NULL),
+    (5, 'Volkswagen', 'Golf', 'MNO7890', 'APREENDIDO', NOW(), NOW()),
+    (6, 'Fiat', 'Palio', 'PQR1122', 'REGULAR', NOW(), NULL),
+    (7, 'Renault', 'Clio', 'STU3344', 'REGULAR', NOW(), NULL),
+    (8, 'Hyundai', 'HB20', 'VWX5566', 'REGULAR', NOW(), NULL),
+    (9, 'Nissan', 'Sentra', 'YZA7788', 'REGULAR', NOW(), NULL),
+    (10, 'Peugeot', '208', 'BCD9900', 'APREENDIDO', NOW(), NOW()),
+    (11, 'Citroen', 'C4', 'EFG2233', 'REGULAR', NOW(), NULL),
+    (12, 'Kia', 'Sportage', 'HIJ4455', 'REGULAR', NOW(), NULL),
+    (13, 'Jeep', 'Compass', 'KLM6677', 'REGULAR', NOW(), NULL),
+    (14, 'BMW', '320i', 'NOP8899', 'REGULAR', NOW(), NULL),
+    (15, 'Mercedes', 'C200', 'QRS1101', 'REGULAR', NOW(), NULL),
+    (16, 'Audi', 'A3', 'TUV3322', 'APREENDIDO', NOW(), NOW()),
+    (17, 'Volvo', 'XC60', 'WXY5544', 'REGULAR', NOW(), NULL),
+    (18, 'Porsche', 'Cayenne', 'ZAB7766', 'REGULAR', NOW(), NULL),
+    (19, 'Chevrolet', 'Cruze', 'CDE9988', 'REGULAR', NOW(), NULL),
+    (20, 'Ford', 'Ka', 'FGH2211', 'REGULAR', NOW(), NULL);
