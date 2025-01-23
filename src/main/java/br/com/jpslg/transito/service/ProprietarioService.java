@@ -25,7 +25,7 @@ public class ProprietarioService {
                 .isPresent();
 
         if (emailExistente) {
-            throw new RuntimeException("Já existe um proprietario cadastrado com este email!");
+            throw new NegocioException("Já existe um proprietario cadastrado com este email!");
         }
 
         return proprietarioRepository.save(proprietario);

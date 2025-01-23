@@ -1,6 +1,5 @@
 package br.com.jpslg.transito.api.controller;
 
-import br.com.jpslg.transito.domain.exception.NegocioException;
 import br.com.jpslg.transito.domain.model.Proprietario;
 import br.com.jpslg.transito.domain.repository.ProprietarioRepository;
 import br.com.jpslg.transito.service.ProprietarioService;
@@ -67,8 +66,5 @@ public class ProprietarioController {
         return ResponseEntity.noContent().build();
     }
 
-    @ExceptionHandler(NegocioException.class)
-    public ResponseEntity<String> capturar(NegocioException e) {
-        return ResponseEntity.badRequest().body(e.getMessage());
-    }
+
 }

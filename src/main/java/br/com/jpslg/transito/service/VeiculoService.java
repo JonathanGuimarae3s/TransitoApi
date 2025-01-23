@@ -4,13 +4,14 @@ import br.com.jpslg.transito.domain.enums.StatusVeiculo;
 import br.com.jpslg.transito.domain.exception.NegocioException;
 import br.com.jpslg.transito.domain.model.Proprietario;
 import br.com.jpslg.transito.domain.model.Veiculo;
-import br.com.jpslg.transito.domain.repository.ProprietarioRepository;
 import br.com.jpslg.transito.domain.repository.VeiculoRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 
 @AllArgsConstructor
 @Service
@@ -34,7 +35,7 @@ public class VeiculoService {
 
         novoVeiculo.setProprietario(proprietario);
         novoVeiculo.setStatus(StatusVeiculo.REGULAR);
-        novoVeiculo.setDataCadastro(LocalDateTime.now());
+        novoVeiculo.setDataCadastro(LocalDateTime.now().atZone(ZoneId.systemDefault()).toOffsetDateTime());
 
         return veiculoRepository.save(novoVeiculo);
     }

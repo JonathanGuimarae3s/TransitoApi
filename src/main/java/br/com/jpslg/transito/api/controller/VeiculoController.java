@@ -1,17 +1,19 @@
 package br.com.jpslg.transito.api.controller;
 
-import br.com.jpslg.transito.domain.model.Proprietario;
+import br.com.jpslg.transito.api.assembler.VeiculoAssembler;
+import br.com.jpslg.transito.api.dto.VeiculoDTO;
+import br.com.jpslg.transito.api.input.VeiculoInput;
 import br.com.jpslg.transito.domain.model.Veiculo;
 import br.com.jpslg.transito.domain.repository.VeiculoRepository;
 import br.com.jpslg.transito.service.VeiculoService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -20,15 +22,18 @@ public class VeiculoController {
 
     private final VeiculoRepository veiculoRepository;
     private final VeiculoService veiculoService;
+    private final VeiculoAssembler veiculoAssembler;
+
 
     @GetMapping
-    public List<Veiculo> listar() {
-        return veiculoRepository.findAll();
+    public List<VeiculoDTO> listar() {
+        return veiculoAssembler.toCollectionDTO(veiculoRepository.findAll());
     }
 
     @GetMapping("/{veiculoId}")
-    public ResponseEntity<Veiculo> buscarPorId(@PathVariable Long veiculoId) {
+    public ResponseEntity<VeiculoDTO> buscarPorId(@PathVariable Long veiculoId) {
         return veiculoRepository.findById(veiculoId)
+                .map(veiculoAssembler::toDTO)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
 
@@ -36,8 +41,12 @@ public class VeiculoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Veiculo cadastrar(@Valid @RequestBody Veiculo veiculo) {
-        return veiculoService.cadastrar(veiculo);
+    public VeiculoDTO cadastrar(@Valid @RequestBody VeiculoInput veiculoInput) {
+        Veiculo novoVeiculo = veiculoAssembler.toEntity(veiculoInput);
+        Veiculo veiculoCadastrado = veiculoService.cadastrar(novoVeiculo);
+
+        return veiculoAssembler.toDTO(veiculoCadastrado);
+//        return veiculoAssembler.toDTO(veiculoService.cadastrar(veiculo));*/
     }
 
 
