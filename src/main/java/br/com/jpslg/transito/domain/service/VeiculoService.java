@@ -1,6 +1,7 @@
-package br.com.jpslg.transito.service;
+package br.com.jpslg.transito.domain.service;
 
 import br.com.jpslg.transito.domain.enums.StatusVeiculo;
+import br.com.jpslg.transito.domain.exception.EntidadeNaoEncontradExecption;
 import br.com.jpslg.transito.domain.exception.NegocioException;
 import br.com.jpslg.transito.domain.model.Proprietario;
 import br.com.jpslg.transito.domain.model.Veiculo;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.OffsetDateTime;
 import java.time.ZoneId;
 
 @AllArgsConstructor
@@ -39,6 +39,14 @@ public class VeiculoService {
 
         return veiculoRepository.save(novoVeiculo);
     }
+
+    public Veiculo buscar(Long idVeiculo) {
+        Veiculo veiculo = veiculoRepository.findById(idVeiculo)
+                .orElseThrow(() -> new EntidadeNaoEncontradExecption("Veículo não encontrado!"));
+        return veiculo;
+    }
+
+
 
 }
 

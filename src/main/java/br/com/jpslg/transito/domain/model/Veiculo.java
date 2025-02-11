@@ -1,6 +1,7 @@
 package br.com.jpslg.transito.domain.model;
 
 import br.com.jpslg.transito.domain.enums.StatusVeiculo;
+import br.com.jpslg.transito.domain.exception.NegocioException;
 import br.com.jpslg.transito.domain.validationGroups.ValidationGroups;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -14,9 +15,12 @@ import jakarta.validation.groups.Default;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.modelmapper.internal.bytebuddy.agent.builder.AgentBuilder;
 
 import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -57,6 +61,40 @@ public class Veiculo {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private OffsetDateTime dataApreensao;
 
+    @OneToMany(mappedBy = "veiculo", cascade = CascadeType.PERSIST)
+    private List<Autuacao> autuacaoList = new ArrayList<>();
 
+    public Autuacao adicionarAutuacao(Autuacao autuacao) {
+        autuacao.setDataOcorrencia(OffsetDateTime.now());
+        autuacao.setVeiculo(this);
+
+        getAutuacaoList().add(autuacao);
+
+        return autuacao;
+    }
+
+    public void apreender() {
+
+        if (estaApreendido()) {
+            throw new NegocioException("Veículo já se encontra apreendido!");
+        }
+
+        setStatus(StatusVeiculo.APREENDIDO);
+        setDataApreensao(OffsetDateTime.now());
+    }
+
+    public void liberar() {
+
+        if (!estaApreendido()) {
+            throw new NegocioException("Veículo já está liberado!");
+        }
+
+        setStatus(StatusVeiculo.REGULAR);
+        setDataApreensao(null);
+    }
+
+    private boolean estaApreendido() {
+        return StatusVeiculo.APREENDIDO.equals(getStatus());
+    }
 
 }

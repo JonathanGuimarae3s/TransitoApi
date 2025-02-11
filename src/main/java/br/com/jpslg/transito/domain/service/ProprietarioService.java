@@ -1,4 +1,4 @@
-package br.com.jpslg.transito.service;
+package br.com.jpslg.transito.domain.service;
 
 import br.com.jpslg.transito.domain.exception.NegocioException;
 import br.com.jpslg.transito.domain.model.Proprietario;

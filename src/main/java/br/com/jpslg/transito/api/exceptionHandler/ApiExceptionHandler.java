@@ -1,5 +1,6 @@
 package br.com.jpslg.transito.api.exceptionHandler;
 
+import br.com.jpslg.transito.domain.exception.EntidadeNaoEncontradExecption;
 import br.com.jpslg.transito.domain.exception.NegocioException;
 import lombok.AllArgsConstructor;
 import org.springframework.context.MessageSource;
@@ -50,6 +51,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NegocioException.class)
     public ProblemDetail handleNegocio(NegocioException e) {
         ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.BAD_REQUEST);
+
+        problemDetail.setType(URI.create("https://jonathanApi/erros/regra-de-negocio"));
+        problemDetail.setTitle(e.getMessage());
+
+        return problemDetail;
+    }
+
+    @ExceptionHandler(EntidadeNaoEncontradExecption.class)
+    public ProblemDetail handleNegocio(EntidadeNaoEncontradExecption e) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
 
         problemDetail.setType(URI.create("https://jonathanApi/erros/regra-de-negocio"));
         problemDetail.setTitle(e.getMessage());

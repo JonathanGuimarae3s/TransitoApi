@@ -2,7 +2,7 @@ package br.com.jpslg.transito.api.controller;
 
 import br.com.jpslg.transito.domain.model.Proprietario;
 import br.com.jpslg.transito.domain.repository.ProprietarioRepository;
-import br.com.jpslg.transito.service.ProprietarioService;
+import br.com.jpslg.transito.domain.service.ProprietarioService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
